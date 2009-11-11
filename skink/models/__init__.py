@@ -14,6 +14,7 @@ class Project(Entity):
     name = Field(Unicode(255))
     build_script = Field(Unicode(2000))
     scm_repository = Field(Unicode(1500))
+    branch_name = Field(Unicode(256), default="master")
     #builds = OneToMany('Build', order_by="-date", lazy=True)
     tabs = OneToMany('ProjectTab', order_by="name")
     file_locators = OneToMany('ProjectFileLocator')

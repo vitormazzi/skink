@@ -45,13 +45,13 @@
                                 <div class="sub-section">
                                     Last 10 builds
                                 </div>
-                                <py:if test="not project.builds">
-                                    <div class="build-list" py-if="not project.builds">
+                                <py:if test="not project.last_builds">
+                                    <div class="build-list" py-if="not project.last_builds">
                                         No builds so far.
                                     </div>
                                 </py:if>
-                                <table border="0" cellspacing="0" cellpadding="0" width="100%" py:if="project.builds">
-                                    <tr py:for="build in project.builds">
+                                <table border="0" cellspacing="0" cellpadding="0" width="100%" py:if="project.last_builds">
+                                    <tr py:for="build in project.last_builds">
                                         <td align="left">
                                             <a href="/project/${project.id}/builds/${build.id}" class="${build.status.lower()}"># ${build.number} [${build.date.strftime("%m/%d %H:%M:%S")}]</a>
                                         </td>
@@ -62,12 +62,12 @@
                                 <div class="sub-section">
                                     Last Build
                                 </div>
-                                <py:if test="not project.builds">
-                                    <div class="current-build" py-if="not project.builds">
+                                <py:if test="not project.last_builds">
+                                    <div class="current-build" py-if="not project.last_builds">
                                         No builds so far.
                                     </div>
                                 </py:if>
-                                <table border="0" cellspacing="0" cellpadding="0" width="100%" py:if="project.builds">
+                                <table border="0" cellspacing="0" cellpadding="0" width="100%" py:if="project.last_builds">
                                     <tr py:with="build = current_build">
                                         <td>
                                             <table border="0" cellspacing="0" cellpadding="0" width="100%">

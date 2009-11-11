@@ -12,7 +12,7 @@ from skink.models import Project, ProjectTab, Pipeline, PipelineItem, BuildTab, 
 from skink.errors import ProjectNotFoundError
 
 class ProjectRepository(object):
-    def create(self, name, build_script, scm_repository, monitor_changes, tabs, file_locators):
+    def create(self, name, build_script, scm_repository, branch_name, monitor_changes, tabs, file_locators):
         '''Creates a new project.'''
         project = Project(name=name,
                           build_script=build_script,

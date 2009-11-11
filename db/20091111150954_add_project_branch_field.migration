@@ -1,0 +1,7 @@
+SQL_UP = u"""
+    ALTER TABLE projects ADD COLUMN branch_name VARCHAR(256) DEFAULT 'master';
+"""
+
+SQL_DOWN = u"""
+    ALTER TABLE projects DROP COLUMN branch_name;
+"""

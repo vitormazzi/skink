@@ -21,17 +21,17 @@
         </div>
         <div class="sub-section">last 10 builds</div>
         <div class="sub-section-content">
-          <py:if test="not project.builds">
-            <div class="build-list" py-if="not project.builds">
+          <py:if test="not project.last_builds">
+            <div class="build-list" py-if="not project.last_builds">
                No builds so far.
             </div>
           </py:if>
-          <p py:for="build in project.builds">
+          <p py:for="build in project.last_builds">
               <a href="/project/${project.id}/builds/${build.id}">${build.date.strftime("%m/%d/%Y %H:%M:%S")} - Build # ${build.number}</a>
           </p>
         </div>
         <div class="sub-section">last build</div>
-        <div class="sub-section-content" py:if="project.builds">
+        <div class="sub-section-content" py:if="project.last_builds">
            <div py:with="build = current_build">
                <p>Build summary for Build # ${build.number}</p>
                <p>Finished at ${build.date.strftime("%m/%d/%Y %H:%M:%S")}</p>
