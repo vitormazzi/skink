@@ -20,8 +20,8 @@ class TestProjectRepository(BaseFunctionalTest):
         self.assertNotEqual(project.id, 0)
         self.assertEqual(project.name, u"Test Project")
         self.assertEqual(project.build_script, u"make test")
-        self.assertEqual(project.scm_repository, "git_repo")
-        self.assertEqual(project.branch_name, "master")
+        self.assertEqual(project.scm_repository, u"git_repo")
+        self.assertEqual(project.branch_name, u"master")
 
         projects = Project.query.all()
         self.assertEqual(len(projects), 1)
@@ -46,7 +46,7 @@ class TestProjectRepository(BaseFunctionalTest):
         update.name = u"Some Other Project"
         update.build_script = u"make build"
         update.scm_repository = u"new_repo"
-        update.scm_repository = u"new_features"
+        update.branch_name = u"new_features"
 
         repository.update(update, [], [])
 
@@ -58,7 +58,7 @@ class TestProjectRepository(BaseFunctionalTest):
         self.assertEqual(updated.name, u"Some Other Project")
         self.assertEqual(updated.build_script, u"make build")
         self.assertEqual(updated.scm_repository, u"new_repo")
-        self.assertEqual(updated.scm_repository, u"new_features")
+        self.assertEqual(updated.branch_name, u"new_features")
 
     def test_get_project(self):
         repository = ProjectRepository()
@@ -81,7 +81,7 @@ class TestProjectRepository(BaseFunctionalTest):
         elixir.session.flush()
         elixir.session.commit()
 
-        retrieved = repository.get_project_by_name(project_name="Test Project")
+        retrieved = repository.get_project_by_name(project_name=u"Test Project")
         self.assertEqual(retrieved.id, project.id)
         self.assertEqual(retrieved.name, project.name)
         self.assertEqual(retrieved.build_script, project.build_script)

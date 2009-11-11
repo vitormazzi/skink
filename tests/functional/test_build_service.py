@@ -19,7 +19,7 @@ from skink.imports import *
 class TestBuildService(BaseFunctionalTest):
 
     def test_build_successfully(self):
-        project = self.create_project(name="pyoc", build_script="nosetests", scm_repository="git://github.com/heynemann/pyoc.git", branch_name="master", monitor_changes=True)
+        project = self.create_project(name=u"pyoc", build_script=u"nosetests", scm_repository=u"git://github.com/heynemann/pyoc.git", branch_name=u"master", monitor_changes=True)
 
         elixir.session.flush()
         elixir.session.commit()
@@ -37,8 +37,8 @@ class TestBuildService(BaseFunctionalTest):
 
         self.failUnless(build.scm_status == ScmResult.Created or build.scm_status == ScmResult.Updated)
 
-    def test_build_another_branch_successfully(self):
-        project = self.create_project(name="skink", build_script="nosetests", scm_repository="git://github.com/vitormazzi/skink.git", branch_name="add_testable_branch", monitor_changes=True)
+    def test_build_successfully_another_branch(self):
+        project = self.create_project(name=u"skink", build_script=u"nosetests tests/unit", scm_repository=u"git://github.com/vitormazzi/skink.git", branch_name=u"add_testable_branch", monitor_changes=True)
 
         elixir.session.flush()
         elixir.session.commit()

@@ -14,9 +14,10 @@ from skink.errors import ProjectNotFoundError
 class ProjectRepository(object):
     def create(self, name, build_script, scm_repository, branch_name, monitor_changes, tabs, file_locators):
         '''Creates a new project.'''
-        project = Project(name=name,
-                          build_script=build_script,
-                          scm_repository=scm_repository,
+        project = Project(name=unicode(name),
+                          build_script=unicode(build_script),
+                          scm_repository=unicode(scm_repository),
+                          branch_name=unicode(branch_name),
                           monitor_changes=monitor_changes)
 
         if tabs:

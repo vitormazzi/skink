@@ -13,7 +13,7 @@ from skink.models import *
 from skink.repositories import ProjectRepository
 
 class BaseFunctionalTest(TestCase):
-    def create_project(self, name="ProjectA", build_script=u"make test", scm_repository="git_repo", branch_name="master", monitor_changes=True, tabs=None):
+    def create_project(self, name=u"ProjectA", build_script=u"make test", scm_repository=u"git_repo", branch_name=u"master", monitor_changes=True, tabs=None):
         self.project_repository = ProjectRepository()
         return self.project_repository.create(name=name, 
                                               build_script=build_script, 
