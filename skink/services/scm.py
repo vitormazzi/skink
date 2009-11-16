@@ -45,13 +45,22 @@ class GitRepository(object):
                 self.log("SCM Data retrieved successfully")
             else:
                 self.log("Error retrieving SCM Data: %s" % result.run_log)
+
+            if hasattr(project, 'branch_name') and project.branch_name and (project.branch_name != 'master'):
+                result = executer.execute("git checkout -b %s --track origin/%s" % (project.branch_name, project.branch_name), repository_path)
+                if result.exit_code == 0:
+                    self.log("Switched to branch %s" % project.branch_name)
+                else:
+                    self.log("Error switching to branch %s" % project.branch_name)
+        
+
             last_commit = self.get_last_commit(repository_path)
             return ScmResult(result.exit_code == 0 and ScmResult.Created or ScmResult.Failed, repository_path, last_commit, result.run_log)
         else:
             self.log("Retrieving scm data for project %s in repository %s (updating repository - pull)" % (project_name, project.scm_repository))
             result = executer.execute("git reset --hard", repository_path)
             result = executer.execute("git clean -df", repository_path)
-            result = executer.execute("git pull origin master", repository_path)
+            result = executer.execute("git pull origin %s" % project.branch_name, repository_path)
             if result.exit_code == 0:
                 self.log("SCM Data retrieved successfully")
             else:
@@ -78,7 +87,7 @@ class GitRepository(object):
         
         self.log("Verifying if the repository at %s needs to be updated" % repository_path)
         executer.execute("git remote update", repository_path)
-        result = executer.execute("git rev-parse origin/master master", repository_path)
+        result = executer.execute("git rev-parse origin/%s %s" % (project.branch_name, project.branch_name), repository_path)
         commits = result.run_log.split()
         return len(commits) != 2 or commits[0]!=commits[1]
 

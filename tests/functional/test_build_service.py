@@ -19,7 +19,26 @@ from skink.imports import *
 class TestBuildService(BaseFunctionalTest):
 
     def test_build_successfully(self):
-        project = self.create_project(name="pyoc", build_script="nosetests", scm_repository="git://github.com/heynemann/pyoc.git", monitor_changes=True)
+        project = self.create_project(name=u"pyoc", build_script=u"nosetests", scm_repository=u"git://github.com/heynemann/pyoc.git", branch_name=u"master", monitor_changes=True)
+
+        elixir.session.flush()
+        elixir.session.commit()
+
+        repo_path = join(root_path, "tests", "functional", "repo")
+        
+        try:
+            shutil.rmtree(repo_path)
+        except:
+            print "The repository folder for the test didn't exist previously. This is not an error!"
+            
+        service = BuildService(base_path=repo_path)
+        
+        build = service.build_project(project.id)
+
+        self.failUnless(build.scm_status == ScmResult.Created or build.scm_status == ScmResult.Updated)
+
+    def test_build_successfully_another_branch(self):
+        project = self.create_project(name=u"skink", build_script=u"nosetests tests/unit", scm_repository=u"git://github.com/vitormazzi/skink.git", branch_name=u"add_testable_branch", monitor_changes=True)
 
         elixir.session.flush()
         elixir.session.commit()

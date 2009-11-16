@@ -111,11 +111,12 @@ class ProjectController(BaseController):
         return locators
 
     @authenticated()
-    def create(self, name, build_script, scm_repository, monitor_changes=None, **data):
+    def create(self, name, build_script, scm_repository, branch_name='master', monitor_changes=None, **data):
         project = self.repository.create(
                                 name=name, 
                                 build_script=build_script, 
                                 scm_repository=scm_repository, 
+                                branch_name=branch_name,
                                 monitor_changes=not monitor_changes is None,
                                 tabs=self.__process_tabs_for(data),
                                 file_locators=self.__process_file_locators_for(data))
@@ -123,11 +124,12 @@ class ProjectController(BaseController):
         raise cherrypy.HTTPRedirect('/')
 
     @authenticated()
-    def update(self, project_id, name, build_script, scm_repository, monitor_changes=None, **data):
+    def update(self, project_id, name, build_script, scm_repository, branch_name='master', monitor_changes=None, **data):
         project = self.repository.get(project_id)
         project.name = name
         project.build_script = build_script
         project.scm_repository = scm_repository
+        project.branch_name = branch_name
         project.monitor_changes = not monitor_changes is None
         self.repository.update(project, self.__process_tabs_for(data), file_locators=self.__process_file_locators_for(data))
         PluginEvents.on_project_updated(project)

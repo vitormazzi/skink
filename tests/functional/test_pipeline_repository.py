@@ -17,7 +17,7 @@ class TestPipelineRepository(BaseFunctionalTest):
         projectb = self.create_project(name=u"ProjectB")
 
         repository = PipelineRepository()
-        created_pipeline = repository.create(name=u"Test Pipeline", pipeline_definition="ProjectA > ProjectB")
+        created_pipeline = repository.create(name=u"Test Pipeline", pipeline_definition=u"ProjectA > ProjectB")
         
         pipeline = repository.get(created_pipeline.id)
         
@@ -30,14 +30,14 @@ class TestPipelineRepository(BaseFunctionalTest):
         self.assertEqual(str(pipeline), "ProjectA > ProjectB")
 
     def test_update_pipeline(self):
-        projecta = self.create_project(name="A")
+        projecta = self.create_project(name=u"A")
         projectb = self.create_project(name=u"B")
         projectc = self.create_project(name=u"C")
 
         repository = PipelineRepository()
-        created_pipeline = repository.create(name=u"Test Pipeline", pipeline_definition="A > B")
+        created_pipeline = repository.create(name=u"Test Pipeline", pipeline_definition=u"A > B")
         
-        repository.update(created_pipeline.id, name=u"Updated Pipeline", pipeline_definition="B > A > C")
+        repository.update(created_pipeline.id, name=u"Updated Pipeline", pipeline_definition=u"B > A > C")
         
         pipeline = repository.get(created_pipeline.id)
         
@@ -57,8 +57,8 @@ class TestPipelineRepository(BaseFunctionalTest):
         projectc = self.create_project(name=u"ProjectC")
 
         repository = PipelineRepository()
-        created_pipeline = repository.create(name=u"Test Pipeline", pipeline_definition="ProjectA > ProjectB")
-        created_pipeline2 = repository.create(name=u"Test Pipeline 2", pipeline_definition="ProjectB > ProjectA > ProjectC")
+        created_pipeline = repository.create(name=u"Test Pipeline", pipeline_definition=u"ProjectA > ProjectB")
+        created_pipeline2 = repository.create(name=u"Test Pipeline 2", pipeline_definition=u"ProjectB > ProjectA > ProjectC")
         
         pipelines = repository.get_all()
         
@@ -85,7 +85,7 @@ class TestPipelineRepository(BaseFunctionalTest):
         projectb = self.create_project(name=u"ProjectB")
 
         repository = PipelineRepository()
-        created_pipeline = repository.create(name=u"Test Pipeline", pipeline_definition="ProjectA > ProjectB")
+        created_pipeline = repository.create(name=u"Test Pipeline", pipeline_definition=u"ProjectA > ProjectB")
         
         repository.delete(created_pipeline.id)
         
@@ -98,8 +98,8 @@ class TestPipelineRepository(BaseFunctionalTest):
         projectc = self.create_project(name=u"ProjectC")
 
         repository = PipelineRepository()
-        created_pipeline = repository.create(name=u"Test Pipeline", pipeline_definition="ProjectA > ProjectB")
-        created_pipeline2 = repository.create(name=u"Test Pipeline 2", pipeline_definition="ProjectB > ProjectA > ProjectC")
+        created_pipeline = repository.create(name=u"Test Pipeline", pipeline_definition=u"ProjectA > ProjectB")
+        created_pipeline2 = repository.create(name=u"Test Pipeline 2", pipeline_definition=u"ProjectB > ProjectA > ProjectC")
         
         pipelines = repository.get_all_pipelines_for(projectc)
         

@@ -20,6 +20,11 @@
             </p>
 
             <p class='required'>
+                <label for='branch_name'>Branch to test</label>
+                <input class='text' name="branch_name" value="${project and project.branch_name or 'master'}" id="branch_name" type='text' />
+            </p>
+
+            <p class='required'>
                 <label for='build_script'>
                     Build script
                 </label>
