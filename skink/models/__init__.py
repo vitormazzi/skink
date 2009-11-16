@@ -9,6 +9,7 @@ sys.path.insert(0, root_path)
 
 from skink.imports import *
 from skink.errors import *
+from sqlalchemy import desc
 
 class Project(Entity):
     name = Field(Unicode(255))
@@ -25,8 +26,8 @@ class Project(Entity):
     @property
     def last_builds(self):
         if not hasattr(self, 'last_build_cache') or not self.last_build_cache:
-            self.last_build_cache = Build.query.filter_by(project=self).order_by('-date').all()[:10]
-        
+            self.last_build_cache = Build.query.filter_by(project=self).order_by(desc(Build.date)).all()[:10]
+
         return self.last_build_cache
 
     def get_build_by_id(self, build_id):
